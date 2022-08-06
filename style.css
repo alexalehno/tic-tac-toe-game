@@ -1,0 +1,191 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
+  user-select: none;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  height: 100vh;
+}
+
+.sidebar {
+  min-width: max-content;
+  padding: 30px 30px 30px 50px;
+  box-sizing: border-box;
+  background-color: rgba(0, 213, 241, 0.5);
+  font-size: 20px;
+}
+
+.new-game {
+  padding: 10px;
+  margin-bottom: 30px;
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 15px;
+  font-size: 16px;
+  background-color: rgba(54, 119, 189, 0.49);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.new-game:active {
+  color: white;
+}
+
+.new-game:hover {
+  background-color: rgba(0, 0, 0, 0.38);
+}
+
+.history {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-title {
+  margin-bottom: 0px;
+}
+
+.history-list {
+  padding: 0;
+}
+
+.history-item {
+  margin-bottom: 5px;
+  margin-left: 20px;
+}
+
+.history-move {
+  font-size: 23px;
+  color: red;
+}
+
+.game {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 375px;
+  margin-top: -70px;
+  background-color: rgba(255, 190, 104, 0.779);
+}
+
+.title {
+  font-size: 50px;
+  margin-bottom: 60px;
+  font-family: 'Pacifico', cursive;
+}
+
+.congrat,
+.draw {
+  position: absolute;
+  font-family: 'Pacifico', cursive;
+  font-size: 140px;
+}
+
+.result {
+  position: absolute;
+  top: calc(60% - 170px);
+  font-size: 20px;
+}
+
+.congrat {
+  color: #e05959;
+  animation-name: congrat-animation;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+.draw {
+  left: 30%;
+  color: #333333;
+  animation-name: draw-animation;
+  animation-timing-function: cubic-bezier(.25, 1.16, .69, .84);
+  animation-duration: 6s;
+}
+
+
+@keyframes draw-animation {
+  0% {
+    transform: scale(0);
+  }
+
+  80% {
+    transform: scale(1.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes congrat-animation {
+  0% {
+    left: -90%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+/* ..................................... */
+
+table {
+  border-spacing: 5px;
+  transform-origin: center;
+}
+
+td {
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: bold;
+  background-color: rgb(26 161 170 / 78%);
+}
+
+.win {
+  background-color: red;
+}
+
+/* ...................... */
+
+.table-animation {
+  animation-name: table-animation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(.32, 1.51, .7, .59);
+}
+
+@keyframes table-animation {
+  100% {
+    transform: rotate(calc(360deg * 3));
+  }
+}
+
+.td-animation {
+  animation-name: td-animation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes td-animation {
+  from {
+    border: 2px solid rgb(192, 192, 192);
+  }
+
+  50% {
+    border: 50px solid rgba(255, 255, 255, 0);
+    background-color: rgb(255, 174, 0);
+    transform: rotate(360deg);
+  }
+
+  to {
+    border: 2px solid rgb(30, 30, 30);
+  }
+}
