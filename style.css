@@ -1,19 +1,32 @@
 body {
   margin: 0;
-  overflow: hidden;
   font-family: 'Open Sans', sans-serif;
   user-select: none;
 }
 
+table {
+  border-spacing: 5px;
+  transform-origin: center;
+}
+
+td {
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  background-color: rgb(26 161 170 / 78%);
+}
+
 .app {
-  display: grid;
-  grid-template-columns: 1fr 6fr;
+  display: flex;
   height: 100vh;
+  overflow: hidden;
 }
 
 .sidebar {
   min-width: max-content;
-  padding: 30px 30px 30px 50px;
+  padding: 30px;
   box-sizing: border-box;
   background-color: rgba(0, 213, 241, 0.5);
   font-size: 20px;
@@ -69,7 +82,7 @@ body {
   justify-content: center;
   align-items: center;
   min-width: 375px;
-  margin-top: -70px;
+  width: 100%;
   background-color: rgba(255, 190, 104, 0.779);
 }
 
@@ -79,81 +92,40 @@ body {
   font-family: 'Pacifico', cursive;
 }
 
-.congrat,
-.draw {
-  position: absolute;
-  font-family: 'Pacifico', cursive;
-  font-size: 140px;
+.win {
+  background-color: red;
 }
 
 .result {
   position: absolute;
   top: calc(60% - 170px);
-  font-size: 20px;
+  font-size: 23px;
+  font-weight: bold;
+  color: rebeccapurple;
+}
+
+.congrat,
+.draw {
+  position: absolute;
+  top: 40%;
+  margin: 0;
+  font-family: 'Pacifico', cursive;
+  font-size: 90px;
 }
 
 .congrat {
   color: #e05959;
   animation-name: congrat-animation;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
   animation-duration: 3s;
   animation-iteration-count: infinite;
 }
 
 .draw {
-  left: 30%;
-  color: #333333;
+  color: #c32020;
   animation-name: draw-animation;
   animation-timing-function: cubic-bezier(.25, 1.16, .69, .84);
   animation-duration: 6s;
 }
-
-
-@keyframes draw-animation {
-  0% {
-    transform: scale(0);
-  }
-
-  80% {
-    transform: scale(1.5);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes congrat-animation {
-  0% {
-    left: -90%;
-  }
-
-  100% {
-    left: 100%;
-  }
-}
-
-/* ..................................... */
-
-table {
-  border-spacing: 5px;
-  transform-origin: center;
-}
-
-td {
-  width: 80px;
-  height: 80px;
-  text-align: center;
-  font-size: 1.7rem;
-  font-weight: bold;
-  background-color: rgb(26 161 170 / 78%);
-}
-
-.win {
-  background-color: red;
-}
-
-/* ...................... */
 
 .table-animation {
   animation-name: table-animation;
@@ -162,16 +134,45 @@ td {
   animation-timing-function: cubic-bezier(.32, 1.51, .7, .59);
 }
 
-@keyframes table-animation {
-  100% {
-    transform: rotate(calc(360deg * 3));
-  }
-}
-
 .td-animation {
   animation-name: td-animation;
   animation-duration: 3s;
   animation-iteration-count: infinite;
+}
+
+@keyframes draw-animation {
+  0% {
+    transform: scale(0) rotate(0deg);
+  }
+
+  80% {
+    transform: scale(1.5) rotate(360deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+@keyframes congrat-animation {
+  0% {
+    left: -100%;
+  }
+
+  50% {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes table-animation {
+  100% {
+    transform: rotate(calc(360deg * 3));
+  }
 }
 
 @keyframes td-animation {
@@ -180,12 +181,79 @@ td {
   }
 
   50% {
-    border: 50px solid rgba(255, 255, 255, 0);
+    border: 36px solid rgba(255, 255, 255, 0);
     background-color: rgb(255, 174, 0);
     transform: rotate(360deg);
   }
 
   to {
     border: 2px solid rgb(30, 30, 30);
+  }
+}
+
+@media all and (max-width: 560px) {
+  .sidebar {
+    padding: 20px;
+    font-size: 18px;
+  }
+
+  .new-game {
+    padding: 8px;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+
+  .history-move {
+    font-size: 21px;
+  }
+
+  .game {
+    justify-content: flex-start;
+    min-width: 310px;
+  }
+
+  .title {
+    font-size: 30px;
+    margin-bottom: 40px;
+  }
+
+  td {
+    width: 65px;
+    height: 65px;
+    font-size: 20px;
+  }
+
+  .result {
+    top: 60%;
+  }
+
+  .congrat,
+  .draw {
+    font-size: 60px;
+  }
+}
+
+@media all and (max-width: 450px) {
+  .sidebar {
+    padding: 12px;
+    padding-top: 30px;
+    font-size: 18px;
+  }
+
+  .new-game {
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .history-move {
+    font-size: 20px;
+  }
+
+  .game {
+    min-width: 200px;
+  }
+
+  .title {
+    font-size: 28px;
   }
 }

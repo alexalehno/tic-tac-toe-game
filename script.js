@@ -31,7 +31,16 @@ class TicTacToe {
 
   view = null;
 
-  // ........................
+
+  start(view) {
+    this.view = view;
+  }
+
+  updateView() {
+    if (this.view) {
+      this.view.update();
+    }
+  }
 
   moveHistory(i) {
     if (this.winner || this.isDraw()) {
@@ -54,18 +63,6 @@ class TicTacToe {
     }
 
     this.updateView();
-  }
-
-  // ........................
-
-  start(view) {
-    this.view = view;
-  }
-
-  updateView() {
-    if (this.view) {
-      this.view.update();
-    }
   }
 
   reset() {
@@ -160,8 +157,6 @@ class View {
     this.model = model;
     this.table = table;
     this.cells = table.querySelectorAll('td');
-    //............
-
     this.historyEl = document.querySelector('.history-list');
   }
 
@@ -244,7 +239,10 @@ class View {
       }
 
       return new Promise(resolve => {
-        tableAnim();
+        if (document.documentElement.clientWidth >= 560) {
+          tableAnim();
+        }
+
         createText(t, cl);
 
         setTimeout(() => {
@@ -269,37 +267,26 @@ class Controller {
     this.model = model;
     this.table = table;
 
-    this.table.addEventListener('click', (e) => this.next(e));
+    this.table.addEventListener('click', (e) => {
+      let td = e.target.closest('td');
+      if (!td) return;
 
-    const newGameBtn = document.querySelector('.new-game')
-    newGameBtn.addEventListener('click', () => this.newGame());
+      let x = td.parentNode.rowIndex;
+      let y = td.cellIndex;
 
+      this.model.nextTurn(x, y);
+    });
 
-    const historyList = document.querySelector('.history-list')
-    historyList.addEventListener('click', (e) => this.history(e));
-  }
+    document.querySelector('.history-list').addEventListener('click', (e) => {
+      let li = e.target.closest('li');
+      if (!li) return;
 
-  next(e) {
-    let td = e.target.closest('td');
-    if (!td) return;
+      let i = [...li.parentNode.children].indexOf(li);
 
-    let x = td.parentNode.rowIndex;
-    let y = td.cellIndex;
+      this.model.moveHistory(i);
+    });
 
-    this.model.nextTurn(x, y);
-  }
-
-  history(e) {
-    let li = e.target.closest('li');
-    if (!li) return;
-
-    let i = [...li.parentNode.children].indexOf(li);
-
-    this.model.moveHistory(i);
-  }
-
-  newGame() {
-    this.model.reset();
+    document.querySelector('.new-game').addEventListener('click', () => this.model.reset());
   }
 }
 
